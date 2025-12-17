@@ -66,4 +66,3 @@
         </div>
     </section>
 </main>
-<?php include 'footer.php'; ?>
