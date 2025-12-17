@@ -13,7 +13,7 @@ $userName = $_SESSION['user_full_name'] ?? null;
 <head>
     <meta charset="UTF-8">
     <title>PathFinder – Find Your Future</title>
-    <link rel="stylesheet" href="style.css"> 
+    <link rel="stylesheet" href="<?php echo get_stylesheet_uri(); ?>"> 
 </head>
 <body>
 
