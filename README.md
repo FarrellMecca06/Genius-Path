@@ -1,2 +1,2 @@
 # Genius-Path
-Project Sjk Semester 3
+Project Semester 3
