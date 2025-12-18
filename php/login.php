@@ -1,5 +1,5 @@
 <?php
-include 'config.php';
+include __DIR__ . '/config.php';
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-include 'header.php';
+include __DIR__ . '/header.php';
 ?>
 <main class="page narrow">
     <section class="page-header">
@@ -63,4 +63,6 @@ include 'header.php';
         </p>
     </form>
 </main>
-<?php include 'footer.php'; ?>
+<?php 
+include __DIR__ . '/footer.php'; 
+?>
