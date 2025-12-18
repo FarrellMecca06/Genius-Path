@@ -1,0 +1,17 @@
+# --- Kredensial & Rahasia (JANGAN DI-UPLOAD) ---
+credentials.php
+wp-config-local.php
+
+# --- File Sistem Sampah ---
+.DS_Store
+Thumbs.db
+
+# --- Folder Upload (Isi gambar/video tidak perlu masuk GitHub) ---
+wp-content/uploads/
+wp-content/cache/
+wp-content/upgrade/
+
+# --- Log Error ---
+*.log
+error_log
+debug.log
