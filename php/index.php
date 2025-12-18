@@ -1,4 +1,4 @@
-<?php include 'header.php'; ?>
+<?php include  __DIR__ . '/header.php'; ?>
 <main class="page">
 <section class="hero">
     <div class="hero-text">
@@ -6,7 +6,7 @@
         <p>
             </p>
         <div class="hero-actions">
-            <button class="btn-primary" onclick="window.location='self_discovery.php'">Start Self Discovery</button>
+           <a href="<?php echo home_url('/self_discovery.php'); ?>" class="btn-primary">Start Self Discovery</a>
         </div>
         <div class="hero-tags">
             <span>Career Roadmaps</span>
@@ -14,7 +14,7 @@
             <span>Motivation Boost</span>
         </div>
     </div> <div class="hero-image">
-        <img src="../image/utama.png" alt="Illustration of students exploring career paths">
+        <img src="<?php echo get_template_directory_uri(); ?>/../image/utama.png" alt="Illustration of students exploring career paths">
     </div>
 
 </section>
@@ -31,9 +31,9 @@
                     <li>Personality & values insights</li>
                     <li>Instant summary of your profile</li>
                 </ul>
-                <button class="btn-card" onclick="window.location='self_discovery.php'">
+                <a href="<?php echo home_url('/self_discovery.php'); ?>" class="btn-card">
                     Start assessment
-                </button>
+                </a>
             </article>
 
             <article class="card card-business">
@@ -45,9 +45,9 @@
                     <li>Roadmaps & required skills</li>
                     <li>Salary & job outlook overview</li>
                 </ul>
-                <button class="btn-card" onclick="window.location='careers.php'">
+                <a href="<?php echo home_url('/careers.php'); ?>" class="btn-card">
                     View recommendations
-                </button>
+                </a>
             </article>
 
             <article class="card card-progress">
@@ -59,11 +59,13 @@
                     <li>Weekly & monthly insights</li>
                     <li>Career readiness score</li>
                 </ul>
-                <button class="btn-card" onclick="window.location='dashboard.php'">
+                <a href="<?php echo home_url('/dashboard.php'); ?>" class="btn-card">
                     Open dashboard
-                </button>
+                </a>
             </article>
         </div>
     </section>
 </main>
-<?php include 'footer.php'; ?>
+<?php 
+include __DIR__ . '/footer.php'; 
+?>

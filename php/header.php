@@ -9,31 +9,34 @@ if (session_status() === PHP_SESSION_NONE) {
 $userName = $_SESSION['user_full_name'] ?? null;
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html <?php language_attributes(); ?>>
 <head>
-    <meta charset="UTF-8">
+    <meta charset="<?php bloginfo( 'charset' ); ?>">
     <title>PathFinder – Find Your Future</title>
-    <link rel="stylesheet" href="<?php echo get_stylesheet_uri(); ?>"> 
+    <link rel="stylesheet" href="<?php echo get_stylesheet_uri(); ?>">
+    <?php wp_head(); ?> 
 </head>
-<body>
+<body <?php body_class(); ?>>
 
 <nav class="navbar">
     <div class="nav-left">
-        <div class="logo">Path<span>Finder</span></div>
+        <a href="<?php echo home_url(); ?>" class="logo" style="text-decoration: none;">
+            Path<span>Finder</span>
+        </a>
         <ul class="nav-links">
-            <li><a href="index.php">Home</a></li>
-            <li><a href="self_discovery.php">Self Discovery</a></li>
-            <li><a href="careers.php">Career Paths</a></li>
-            <li><a href="dashboard.php">Progress</a></li>
+            <li><a href="<?php echo home_url(); ?>">Home</a></li>
+            <li><a href="<?php echo home_url('/self_discovery.php'); ?>">Self Discovery</a></li>
+            <li><a href="<?php echo home_url('/careers.php'); ?>">Career Paths</a></li>
+            <li><a href="<?php echo home_url('/dashboard.php'); ?>">Progress</a></li>
         </ul>
     </div>
     <div class="nav-right">
         <?php if ($userName): ?>
             <span class="user-pill">Hi, <?php echo htmlspecialchars($userName); ?></span>
-            <a href="logout.php" class="btn-outline">Logout</a>
+            <a href="<?php echo home_url('/logout.php'); ?>" class="btn-outline">Logout</a>
         <?php else: ?>
-            <a href="login.php" class="btn-outline">Login</a>
-            <a href="register.php" class="btn-primary">Get Started</a>
+            <a href="<?php echo home_url('/login.php'); ?>" class="btn-outline">Login</a>
+            <a href="<?php echo home_url('/register.php'); ?>" class="btn-primary">Get Started</a>
         <?php endif; ?>
     </div>
 </nav>

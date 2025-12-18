@@ -8,11 +8,11 @@ if (session_status() === PHP_SESSION_NONE) {
 
 // Redirect if not logged in
 if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php');
+    wp_redirect(home_url('/login.php'));
     exit;
 }
 
-include 'header.php';
+include  __DIR__ . '/header.php';
 ?>
 <main class="page narrow">
     <section class="page-header">
@@ -25,7 +25,7 @@ include 'header.php';
         <?php endif; ?>
     </section>
 
-    <form class="form-card" method="GET" action="start_assessment.php">
+    <form class="form-card" method="GET" action="<?php echo home_url('/start_assessment.php'); ?>">
         <h2>Choose Your Academic Path</h2>
         <div class="form-grid" style="grid-template-columns: 1fr;">
             <div class="form-field">
@@ -47,4 +47,6 @@ include 'header.php';
         </p>
     </form>
 </main>
-<?php include 'footer.php'; ?>
+<?php 
+include __DIR__ . '/footer.php'; 
+?>

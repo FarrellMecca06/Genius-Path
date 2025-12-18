@@ -5,6 +5,18 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+if (isset($_SESSION['user_id'])) {
+    $stmtCheck = $pdo->prepare("SELECT id FROM user_assessments WHERE user_id = ? LIMIT 1");
+    $stmtCheck->execute([$_SESSION['user_id']]);
+    
+    if ($stmtCheck->fetch()) {
+        wp_redirect(home_url('/dashboard.php')); 
+    } else {
+        wp_redirect(home_url('/self_discovery.php'));
+    }
+    exit;
+}
+
 $error = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -19,13 +31,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($user && password_verify($password, $user['password_hash'])) {
-            // store session
+            
             $_SESSION['user_id']        = $user['id'];
             $_SESSION['user_full_name'] = $user['full_name'];
 
-            // go to self discovery (or wherever you prefer)
-            header('Location: self_discovery.php');
+            
+            $stmtCheck = $pdo->prepare("SELECT id FROM user_assessments WHERE user_id = ? LIMIT 1");
+            $stmtCheck->execute([$user['id']]);
+
+            if ($stmtCheck->fetch()) {
+                
+                wp_redirect(home_url('/dashboard.php'));
+            } else {
+                
+                wp_redirect(home_url('/self_discovery.php'));
+            }
             exit;
+
         } else {
             $error = "Invalid email or password.";
         }
@@ -44,7 +66,7 @@ include __DIR__ . '/header.php';
         <div class="alert-error"><?php echo htmlspecialchars($error); ?></div>
     <?php endif; ?>
 
-    <form class="form-card" method="POST" action="login.php">
+    <form class="form-card" method="POST" action="<?php echo home_url('/login.php'); ?>">
         <h2>Welcome back</h2>
         <div class="form-grid">
             <div class="form-field">
@@ -59,7 +81,7 @@ include __DIR__ . '/header.php';
         <button type="submit" class="btn-primary full-width">Login</button>
         <p style="margin-top:0.75rem;font-size:0.85rem;">
             New here?
-            <a href="register.php">Create your free account</a>.
+            <a href="<?php echo home_url('/register.php'); ?>">Create your free account</a>.
         </p>
     </form>
 </main>

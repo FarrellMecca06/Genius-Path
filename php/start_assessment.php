@@ -1,13 +1,13 @@
 <?php
-include 'config.php';
-include 'questions.php';
+include __DIR__ . '/config.php';
+include __DIR__ . '/questions.php';
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
 if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php');
+    header('Location: ' . home_url('/login.php'));
     exit;
 }
 
@@ -17,7 +17,7 @@ $error = "";
 $success = "";
 
 if (!$path || !array_key_exists($path, $all_path_questions)) {
-    header('Location: self_discovery.php');
+    header('Location: ' . home_url('/self_discovery.php'));
     exit;
 }
 
@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $career_values
             ]);
 
-            header('Location: self_discovery.php?message=Assessment complete! Your profile has been updated. Check your career recommendations.');
+            header('Location: ' . home_url('/self_discovery.php?message=Assessment complete! Your profile has been updated. Check your career recommendations.'));
             exit;
 
         } catch (PDOException $e) {
@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-include 'header.php';
+include  __DIR__ . '/header.php';
 ?>
 <main class="page narrow">
     <section class="page-header">
@@ -115,11 +115,13 @@ include 'header.php';
             if (empty($questions)): ?>
                 <div class="alert-error">No questions found for this path.</div>
             <?php endif; ?>
-        </div>
+        </div>  
         
         <button type="submit" class="btn-primary full-width" style="margin-top: 2rem;">
             Submit Assessment
         </button>
     </form>
 </main>
-<?php include 'footer.php'; ?>
+<?php 
+include __DIR__ . '/footer.php'; 
+?>

@@ -10,6 +10,6 @@ try {
     $pdo = new PDO($dsn, $user, $pass);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
-    die("Koneksi Database Gagal: " . $e->getMessage());
+    die("Connection to Database Failed: " . $e->getMessage());
 }
 ?>

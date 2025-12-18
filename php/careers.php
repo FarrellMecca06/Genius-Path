@@ -1,15 +1,29 @@
 <?php
-include 'config.php';
+include __DIR__ . '/config.php';
 
-// Ambil assessment terbaru (sangat sederhana)
-$stmt = $pdo->query("
-    SELECT u.id AS user_id, u.full_name, a.interest_area, a.personality_type, a.top_skill
-    FROM users u
-    JOIN user_assessments a ON a.user_id = u.id
-    ORDER BY a.id DESC
-    LIMIT 1
-");
-$userProfile = $stmt->fetch(PDO::FETCH_ASSOC);
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+$userProfile = false;
+$careers = [];
+
+// 3. LOGIKA BARU: Cek apakah User Login & Ambil Data Dia Saja
+if (isset($_SESSION['user_id'])) {
+    $current_user_id = $_SESSION['user_id'];
+
+    // Query khusus milik user ini (WHERE u.id = ?)
+    $stmt = $pdo->prepare("
+        SELECT u.id AS user_id, u.full_name, a.interest_area, a.personality_type, a.top_skill
+        FROM users u
+        JOIN user_assessments a ON a.user_id = u.id
+        WHERE u.id = ? 
+        ORDER BY a.id DESC
+        LIMIT 1
+    ");
+    $stmt->execute([$current_user_id]);
+    $userProfile = $stmt->fetch(PDO::FETCH_ASSOC);
+}
 
 // Query career yang match interest_area
 $careers = [];
@@ -19,7 +33,7 @@ if ($userProfile) {
     $careers = $stmtCareers->fetchAll(PDO::FETCH_ASSOC);
 }
 
-include 'header.php';
+include __DIR__ . '/header.php';
 ?>
 <main class="page narrow">
     <section class="page-header">
@@ -31,7 +45,7 @@ include 'header.php';
                 with a <strong><?php echo htmlspecialchars($userProfile['personality_type']); ?></strong> personality.
             </p>
         <?php else: ?>
-            <p>No profile found yet. Please complete the Self Discovery first.</p>
+            <p>No profile found yet. Please complete the <a href="<?php echo home_url('/self_discovery.php'); ?>">Self Discovery</a> first.</p>
         <?php endif; ?>
     </section>
     <?php if ($careers): ?>
@@ -57,4 +71,6 @@ include 'header.php';
             table.</p>
     <?php endif; ?>
 </main>
-<?php include 'footer.php'; ?>
+<?php 
+include __DIR__ . '/footer.php'; 
+?>
