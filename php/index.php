@@ -7,7 +7,7 @@ include  __DIR__ . '/header.php'; ?>
 <main class="page">
 <section class="hero">
     <div class="hero-text">
-       
+    <h1>Find Your Path. Build Your Future.</h1>
         <p>
             </p>
         <div class="hero-actions">
