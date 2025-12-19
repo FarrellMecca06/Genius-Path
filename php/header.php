@@ -9,7 +9,7 @@ if (session_status() === PHP_SESSION_NONE) {
 $userName = $_SESSION['user_full_name'] ?? null;
 ?>
 <!DOCTYPE html>
-<html <?php language_attributes(); ?>>
+<html lang="en">
 <head>
     <meta charset="<?php bloginfo( 'charset' ); ?>">
     <title>PathFinder – Find Your Future</title>
