@@ -13,7 +13,7 @@ $userName = $_SESSION['user_full_name'] ?? null;
 <head>
     <meta charset="<?php bloginfo( 'charset' ); ?>">
     <title>PathFinder – Find Your Future</title>
-    <link rel="stylesheet" href="<?php echo get_stylesheet_uri(); ?>">
+    <link rel="stylesheet" href="<?php echo get_stylesheet_uri(); ?>?v=<?php echo time(); ?>">
     <?php wp_head(); ?> 
 </head>
 <body <?php body_class(); ?>>
