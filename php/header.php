@@ -27,7 +27,6 @@ $userName = $_SESSION['user_full_name'] ?? null;
             <li><a href="<?php echo home_url(); ?>">Home</a></li>
             <li><a href="<?php echo home_url('/self_discovery.php'); ?>">Self Discovery</a></li>
             <li><a href="<?php echo home_url('/careers.php'); ?>">Career Paths</a></li>
-            <li><a href="<?php echo home_url('/dashboard.php'); ?>">Progress</a></li>
             <?php if ($userName): ?>
                 <li><a href="<?php echo home_url('/logout.php'); ?>" class="btn-outline">Logout</a></li>
             <?php endif; ?>
