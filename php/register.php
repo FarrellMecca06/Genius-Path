@@ -15,6 +15,7 @@ $success = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $full_name = trim($_POST['full_name'] ?? '');
+  $gender = $_POST['gender'] ?? '';
   $email = trim($_POST['email'] ?? '');
   $password = $_POST['password'] ?? '';
   $education_level = $_POST['education_level'] ?? 'High School';
@@ -36,10 +37,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
       $stmt = $pdo->prepare(
-        "INSERT INTO users (full_name, email, password_hash, education_level, grade_or_major) VALUES (?,?,?,?,?)"
+        "INSERT INTO users (full_name, gender, email, password_hash, education_level, grade_or_major) VALUES (?,?,?,?,?,?)"
       );
       
-      if ($stmt->execute([$full_name, $email, $password_hash, $education_level, $grade_or_major])) {
+      if ($stmt->execute([$full_name, $gender, $email, $password_hash, $education_level, $grade_or_major])) {
           
           $newUserId = $pdo->lastInsertId();
           $success = "Account created successfully! You can now login.";
@@ -82,6 +83,19 @@ include  __DIR__ . '/header.php';
         <div class="form-field">
           <label>Full name *</label>
           <input type="text" name="full_name" required>
+        </div>
+        <div class="form-field">
+          <label>Gender *</label>
+          <div style="display: flex; gap: 1.5rem; align-items: center;">
+            <label style="display: flex; align-items: center; margin: 0; font-weight: normal;">
+              <input type="radio" name="gender" value="Male" required style="margin-right: 0.5rem;">
+              Male
+            </label>
+            <label style="display: flex; align-items: center; margin: 0; font-weight: normal;">
+              <input type="radio" name="gender" value="Female" required style="margin-right: 0.5rem;">
+              Female
+            </label>
+          </div>
         </div>
         <div class="form-field">
           <label>Email *</label>

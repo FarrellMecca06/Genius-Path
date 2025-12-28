@@ -28,15 +28,18 @@ $userName = $_SESSION['user_full_name'] ?? null;
             <li><a href="<?php echo home_url('/self_discovery.php'); ?>">Self Discovery</a></li>
             <li><a href="<?php echo home_url('/careers.php'); ?>">Career Paths</a></li>
             <li><a href="<?php echo home_url('/dashboard.php'); ?>">Progress</a></li>
+            <?php if ($userName): ?>
+                <li><a href="<?php echo home_url('/logout.php'); ?>" class="btn-outline">Logout</a></li>
+            <?php endif; ?>
+            <?php if (!isset($_SESSION['user_id'])): ?>
+                <li><a href="<?php echo home_url('/login.php'); ?>" class="btn-outline">Login</a></li>
+                <li><a href="<?php echo home_url('/register.php'); ?>" class="btn-primary">Get Started</a></li>
+            <?php endif; ?>
         </ul>
     </div>
     <div class="nav-right">
         <?php if ($userName): ?>
             <span class="user-pill">Hi, <?php echo htmlspecialchars($userName); ?></span>
-            <a href="<?php echo home_url('/logout.php'); ?>" class="btn-outline">Logout</a>
-        <?php else: ?>
-            <a href="<?php echo home_url('/login.php'); ?>" class="btn-outline">Login</a>
-            <a href="<?php echo home_url('/register.php'); ?>" class="btn-primary">Get Started</a>
         <?php endif; ?>
     </div>
 </nav>
