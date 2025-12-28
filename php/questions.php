@@ -1,99 +1,94 @@
 <?php
-
 $all_path_questions = [
-    // --- SAINTEK (Science & Technology) ---
     "Saintek" => [
-        // Hard Science Focus
         "I am interested in the fundamental principles governing the universe (Physics).",
         "I enjoy solving problems involving abstract algebra or differential calculus.",
         "I love studying chemical reactions, molecular structures, and elemental properties.",
         "I am fascinated by the inner workings of cells, DNA, and living organisms (Biology).",
         "I prefer conducting controlled experiments in a lab over writing theoretical reports.",
-        
-        // Technology & Engineering Focus
         "I enjoy disassembling and reassembling technical devices to understand how they work.",
         "I like breaking down large problems into small, logical, code-like steps.",
         "I am keenly interested in learning about machine learning and artificial intelligence.",
         "I enjoy designing or planning structures like bridges, buildings, or circuits (Engineering).",
         "I often think about efficient solutions to logistical or physical problems.",
-        
-        // General Science Aptitude
         "I am comfortable dealing with large, complex datasets and statistical models.",
         "I have a good spatial reasoning and can easily visualize 3D objects.",
         "I find excitement in exploring space and new technological frontiers.",
         "I am interested in developing new medical solutions like vaccines or pharmaceutical drugs.",
-        "I believe that mathematics is the primary language for describing the world."
+        "I believe that mathematics is the primary language for describing the world.",
+        "I am interested in protecting digital systems from hacking and cyber threats.", 
+        "I enjoy designing user-friendly layouts for mobile apps and websites.", 
+        "I am fascinated by how robots are built and programmed to perform human tasks.", 
+        "I like analyzing environmental data to solve climate change and pollution issues.", 
+        "I enjoy studying how the human brain processes information and artificial neural networks." 
     ],
 
-    // --- SOSHUM (Social Sciences & Humanities) ---
     "Soshum" => [
-        // Social & Political Focus
         "I am interested in understanding how political decisions and government policies affect society.",
         "I enjoy debating current ethical or moral problems with strong arguments.",
         "I am fascinated by concepts of justice, law, and international relations.",
         "I find pleasure in observing and analyzing individual and group behavior in social settings.",
         "I am comfortable interacting with and interviewing strangers to gather human information.",
-        
-        // Economic & Business Focus
         "I enjoy analyzing statistical data related to social, market, or economic issues.",
         "I like reading theories about markets, supply, demand, and finance.",
         "I can logically structure and write a comprehensive business plan or investment analysis.",
         "I would rather manage a team or lead a negotiation than perform repetitive technical tasks.",
         "I have a deep interest in quantitative research methods in social and economic science.",
-        
-        // Humanities Focus
         "I enjoy studying the history of civilizations, ancient cultures, and human development.",
         "I am good at spotting subtle biases or logical fallacies in arguments and media.",
         "I often look for the socio-economic reasons behind changes in cultural trends.",
         "I believe the best organizational solutions come from discussion and compromise.",
-        "I can explain complex societal issues to laypersons using clear language."
+        "I can explain complex societal issues to laypersons using clear language.",
+        "I am interested in helping people overcome mental health challenges through therapy.", 
+        "I enjoy analyzing financial market trends and predicting stock movements.", 
+        "I find it rewarding to create marketing campaigns that influence people's buying habits.", 
+        "I am interested in working within the legal system to defend people's rights.", 
+        "I like studying how urban planning and sociology impact the quality of city life." 
     ],
     
-    // --- BAHASA (Language) ---
     "Bahasa" => [
-        // Linguistics & Structure
         "I am deeply interested in studying the structure, grammar, and origins of different languages.",
         "I enjoy analyzing the precise meaning and context of specific words and phrases.",
         "I find pleasure in translating or interpreting texts between languages, focusing on nuance.",
         "I am skilled at recognizing and mimicking new accents or speech patterns.",
         "I can easily identify the tone and hidden intent in a conversation or piece of writing.",
-
-        // Literature & Culture
         "I enjoy reading and analyzing novels, poetry, or drama from various cultures and eras.",
         "I am good at finding hidden meaning or symbolism in a work of literature.",
         "I have a strong desire to travel and communicate with local residents in foreign countries.",
         "I enjoy learning about the history and cultural impact of different languages.",
         "I prefer reading foreign literature in its original language, if possible.",
-
-        // Communication & Writing
         "I am capable of writing stories, essays, or reports with impeccable grammar and clarity.",
         "I find enjoyment in studying communication theories and rhetoric (the art of persuasion).",
         "I enjoy teaching or explaining complex concepts to others using precise and effective vocabulary.",
         "I would prefer a career as a translator/interpreter over one in hard science or business.",
-        "I like to keep up with slang and digital communication trends."
+        "I like to keep up with slang and digital communication trends.",
+        "I am interested in a career as a news anchor or a professional journalist.", 
+        "I enjoy managing social media content and writing engaging copy for brands.", 
+        "I find the idea of working as a diplomatic representative for my country exciting.", 
+        "I like researching the evolution of ancient scripts and dead languages.", 
+        "I enjoy subtitling movies or dubbing foreign content into my native language." 
     ],
 
-    // --- SENI (Arts) ---
     "Seni" => [
-        // Visual & Creation
         "I enjoy creating things with my hands, such as painting, drawing, or sculpting.",
         "I am sensitive to how visual elements (color, composition, shape) influence emotion.",
         "I love experimenting with different artistic mediums and unconventional techniques.",
         "I frequently take photos or videos and enjoy telling stories through visual media.",
         "I have a keen eye for detail in an artwork that others might overlook.",
-
-        // Design & Performance
         "I am interested in the history of art, architecture, and design principles.",
         "I enjoy designing clothing, interiors, or planning visual layouts (Graphic/Interior Design).",
         "I have a deep appreciation for music, dance, theater, or performance arts.",
         "I am proficient or willing to become proficient in design or editing software (e.g., Figma, Adobe).",
         "I enjoy learning how different cultures express themselves through various art forms.",
-        
-        // Creativity & Expression
         "I am able to generate original and unique ideas quickly.",
         "I am comfortable working in environments that allow for strong personal expression.",
         "I prefer a creative industry job over a highly structured corporate office job.",
         "I enjoy curating collections or designing public exhibitions (Museum/Gallery work).",
-        "I often daydream or visualize concepts before putting them into concrete form."
+        "I often daydream or visualize concepts before putting them into concrete form.",
+        "I am interested in designing the 3D environments and characters for video games.", 
+        "I enjoy planning the aesthetics and functionality of residential or commercial buildings.", 
+        "I find it exciting to direct film projects and manage a creative production crew.", 
+        "I am interested in fashion trends and designing wearable art or accessories.", 
+        "I enjoy creating digital illustrations and concept art for books or movies." 
     ]
 ];
