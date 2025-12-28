@@ -1,7 +1,5 @@
 <?php
-// header.php
 
-// make sure session exists
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -21,7 +19,7 @@ $userName = $_SESSION['user_full_name'] ?? null;
 <nav class="navbar">
     <div class="nav-left">
         <a href="<?php echo home_url(); ?>" class="logo" style="text-decoration: none;">
-            Genius<span>Finder</span>
+            GeniusPath<span></span>
         </a>
         <ul class="nav-links">
             <li><a href="<?php echo home_url(); ?>">Home</a></li>
