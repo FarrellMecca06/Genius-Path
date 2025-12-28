@@ -3,6 +3,6 @@
 $host = "localhost";
 $db   = "geniuspath";
 $user = "root";
-$pass = "";
+$pass = "root";
 
 ?>

@@ -1,9 +1,5 @@
 <?php
-// questions.php
-// This file defines all questions for the Self Discovery quiz,
-// categorized by the four main student paths.
 
-// --- ALL UNIQUE QUESTIONS ---
 $all_path_questions = [
     // --- SAINTEK (Science & Technology) ---
     "Saintek" => [
