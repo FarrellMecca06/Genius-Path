@@ -1,8 +1,8 @@
 <?php
 
 $host = "localhost";
-$db   = "geniuspath";
+$db   = "GeniusPath";
 $user = "root";
-$pass = "";
+$pass = "root";
 
 ?>

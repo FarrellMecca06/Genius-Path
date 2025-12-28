@@ -12,7 +12,7 @@ $userName = $_SESSION['user_full_name'] ?? null;
 <html lang="en">
 <head>
     <meta charset="<?php bloginfo( 'charset' ); ?>">
-    <title>PathFinder – Find Your Future</title>
+    <title>GeniusPath – Find Your Future</title>
     <link rel="stylesheet" href="<?php echo get_stylesheet_uri(); ?>?v=<?php echo time(); ?>">
     <?php wp_head(); ?> 
 </head>
@@ -21,7 +21,7 @@ $userName = $_SESSION['user_full_name'] ?? null;
 <nav class="navbar">
     <div class="nav-left">
         <a href="<?php echo home_url(); ?>" class="logo" style="text-decoration: none;">
-            Path<span>Finder</span>
+            Genius<span>Path</span>
         </a>
         <ul class="nav-links">
             <li><a href="<?php echo home_url(); ?>">Home</a></li>
