@@ -78,7 +78,7 @@ include  __DIR__ . '/header.php';
 <main class="page narrow">
     <section class="page-header">
         <h1><?php echo htmlspecialchars($path); ?> Path Assessment (<?php echo count($questions); ?> Questions)</h1>
-        <p>Answer Yes or No to determine your alignment with the **<?php echo htmlspecialchars($path); ?>** path.</p>
+        <p>Answer Yes or No to determine your alignment with the <?php echo htmlspecialchars($path); ?> path.</p>
     </section>
 
     <?php if ($error): ?>

@@ -21,7 +21,7 @@ $userName = $_SESSION['user_full_name'] ?? null;
 <nav class="navbar">
     <div class="nav-left">
         <a href="<?php echo home_url(); ?>" class="logo" style="text-decoration: none;">
-            Genius<span>Path</span>
+            Genius<span>Finder</span>
         </a>
         <ul class="nav-links">
             <li><a href="<?php echo home_url(); ?>">Home</a></li>
