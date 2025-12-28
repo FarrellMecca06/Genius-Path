@@ -55,19 +55,7 @@ include  __DIR__ . '/header.php'; ?>
                 </a>
             </article>
 
-            <article class="card card-progress">
-                <div class="card-badge">Progress</div>
-                <h3>Career Readiness Dashboard</h3>
-                <p>Track your academic, skills, and consistency scores in one place.</p>
-                <ul>
-                    <li>Academic & skill scores</li>
-                    <li>Weekly & monthly insights</li>
-                    <li>Career readiness score</li>
-                </ul>
-                <a href="<?php echo home_url('/dashboard.php'); ?>" class="btn-card">
-                    Open dashboard
-                </a>
-            </article>
+         
         </div>
     </section>
 </main>
