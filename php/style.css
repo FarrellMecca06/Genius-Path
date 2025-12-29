@@ -5,11 +5,10 @@
 }
 
 :root {
-  /* Diubah ke palet Ruangguru: Biru Utama, Biru Navy, dan Hijau */
-  --primary-color: #0096d9; 
+  --primary-color: #56bbea; 
   --accent-color: #00c48c;
   --text-color: #1d2343;
-  --text-light: #64748b;
+  --text-light: #191a1c;
   --background-color: #ffffff;
   --card-bg: #ffffff;
   --border-color: rgba(15, 23, 42, 0.08);
@@ -267,12 +266,12 @@ h1, h2, h3, h4 {
 }
 
 .card-business {
-  background: #fdf2f8;
-  border: 1px solid #fbcfe8;
+  background: #e1fdf3;
+  border: 1px solid #cffafb;
 }
 .card-business .card-badge {
-  background: #fbcfe8;
-  color: #be185d;
+  background: #cffafb;
+  color: #00c48c;
 }
 
 .card-progress { 
@@ -504,11 +503,11 @@ h1, h2, h3, h4 {
 }
 
 .meter-skill {
-  background: linear-gradient(90deg, #ff4d4d, #ff944d); 
+  background: linear-gradient(90deg, #0096d9, #00c48c); 
 }
 
 .meter-consistency {
-  background: linear-gradient(90deg, #ffcc00, #ffee00); 
+  background: linear-gradient(90deg, #0096d9, #00c48c); 
 }
 
 .score-card p {
