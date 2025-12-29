@@ -29,15 +29,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $score = 0;
         $totalQuestions = count($questions);
-        
+        $yes_answers = []; // Menyimpan nomor soal yang dijawab 'yes'
+
+        // 1. Kumpulkan semua jawaban 'yes'
         for ($i = 1; $i <= $totalQuestions; $i++) {
             if (isset($_POST["q{$i}"]) && ($_POST["q{$i}"] === 'yes')) {
                 $score++;
+                $yes_answers[] = $i;
             }
         }
 
-        $interest_area = $path; 
-        
+        // 2. Tentukan Personality Type berdasarkan persentase total
         $match_percentage = ($score / $totalQuestions);
         if ($match_percentage >= 0.7) {
             $personality_type = 'Strong Match (' . round($match_percentage * 100) . '%)';
@@ -46,11 +48,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             $personality_type = 'Low Match (' . round($match_percentage * 100) . '%)';
         }
-        
-        $top_skill = "Assessment Score: {$score}/{$totalQuestions}";
+
+        // 3. LOGIKA PEMBOBOTAN (Weighted Interest)
+        // Mencari profesi spesifik dengan kecocokan jawaban terbanyak
+        $recommended_job = "";
+        $max_match = -1;
+
+        if (isset($path_mapping[$path])) {
+            foreach ($path_mapping[$path] as $job_title => $related_questions) {
+                // Hitung irisan antara jawaban user dan daftar soal profesi
+                $match_count = count(array_intersect($yes_answers, $related_questions));
+                
+                if ($match_count > $max_match) {
+                    $max_match = $match_count;
+                    $recommended_job = $job_title;
+                }
+            }
+        }
+
+        // Fallback jika tidak ada jawaban 'yes' sama sekali
+        if ($recommended_job === "" || $score === 0) {
+            $recommended_job = "General " . $path . " Professional";
+        }
+
         $career_values = "Interest determined via {$path} path assessment.";
 
         try {
+            // 4. Simpan hasil spesifik ke kolom 'top_skill'
             $stmt = $pdo->prepare("INSERT INTO user_assessments 
                 (user_id, favorite_subject, interest_area, personality_type, top_skill, career_values)
                 VALUES (?, ?, ?, ?, ?, ?)");
@@ -58,13 +82,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->execute([
                 $user_id,
                 "Assessment-{$path}", 
-                $interest_area,
+                $path, // interest_area
                 $personality_type,
-                $top_skill,
+                $recommended_job, // Judul profesi spesifik disimpan di top_skill
                 $career_values
             ]);
 
-            header('Location: ' . home_url('/self_discovery.php?message=Assessment complete! Your profile has been updated. Check your career recommendations.'));
+            header('Location: ' . home_url('/self_discovery.php?message=Assessment complete! Your profile has been updated.'));
             exit;
 
         } catch (PDOException $e) {
@@ -78,7 +102,6 @@ include  __DIR__ . '/header.php';
 <main class="page narrow">
     <section class="page-header">
         <h1><?php echo htmlspecialchars($path); ?> Path Assessment</h1>
-        <h1> (<?php echo count($questions); ?> Questions)</h1>
         <p>Answer Yes or No to determine your alignment with the <?php echo htmlspecialchars($path); ?> path.</p>
     </section>
 
@@ -100,7 +123,6 @@ include  __DIR__ . '/header.php';
                     <?php echo htmlspecialchars($qText); ?>
                 </p>
                 <div class="question-options" style="margin-top: 0.5rem; display: flex; gap: 1.5rem;">
-                    
                     <input type='radio' name='q<?php echo $qNumber; ?>' id='q<?php echo $qNumber; ?>_yes' value='yes' required 
                         <?php echo ($prev_answer === 'yes') ? 'checked' : ''; ?>> 
                     <label for='q<?php echo $qNumber; ?>_yes'>Yes</label>
@@ -111,11 +133,6 @@ include  __DIR__ . '/header.php';
                 </div>
             </div>
             <?php endforeach; ?>
-            
-            <?php 
-            if (empty($questions)): ?>
-                <div class="alert-error">No questions found for this path.</div>
-            <?php endif; ?>
         </div>  
         
         <button type="submit" class="btn-primary full-width" style="margin-top: 2rem;">

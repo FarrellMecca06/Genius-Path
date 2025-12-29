@@ -92,3 +92,45 @@ $all_path_questions = [
         "I enjoy creating digital illustrations and concept art for books or movies." 
     ]
 ];
+$path_mapping = [
+    "Saintek" => [
+        "Software Engineer" => [7, 16],
+        "Data Scientist"    => [8, 11],
+        "Medical Doctor"    => [4, 5, 14],
+        "Cyber Security Analyst" => [16],
+        "Robotics Engineer" => [6, 18],
+        "Data Engineer"     => [11],
+        "Environmental Scientist" => [19],
+        "AI Research Scientist"   => [8, 20],
+        "Biotechnologist"   => [4, 14]
+    ],
+    "Soshum" => [
+        "Marketing Manager" => [3, 9, 23],
+        "Social Worker"     => [6],
+        "Economist"         => [10],
+        "Clinical Psychologist" => [4, 20],
+        "Financial Analyst" => [6, 7, 21],
+        "Corporate Lawyer"  => [3, 22],
+        "Marketing Specialist" => [23],
+        "Sociologist"       => [4, 14, 24]
+    ],
+    "Bahasa" => [
+        "Professional Translator" => [3, 11],
+        "Content Writer & Journalist" => [12],
+        "International Journalist" => [25],
+        "Copywriter"        => [12, 26],
+        "Diplomatic Officer" => [8, 27],
+        "Technical Writer"  => [28],
+        "Audiovisual Translator" => [3, 29]
+    ],
+    "Seni" => [
+        "UI/UX Designer"    => [4, 13, 9],
+        "Curator & Gallery Manager" => [14],
+        "Game Artist"       => [16, 30],
+        "Architect"         => [6, 31],
+        "Film Director"     => [4, 32],
+        "Fashion Designer"  => [7, 33],
+        "Interior Designer" => [7, 15, 34]
+    ]
+];
+?>
