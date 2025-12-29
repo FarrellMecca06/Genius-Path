@@ -304,7 +304,6 @@ h1, h2, h3, h4 {
   color: var(--primary-color);
 }
 
-/* Tombol Logout Hijau Ruangguru */
 .btn-primary[href*="logout"], .btn-primary.logout {
   background: #00c48c;
 }
