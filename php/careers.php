@@ -24,11 +24,21 @@ if (isset($_SESSION['user_id'])) {
     $userProfile = $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-// 2. Query career yang match interest_area dengan LIMIT 2
+// 2. Query career dengan logika pembobotan (Prioritas Match Spesifik)
 if ($userProfile) {
-    // Diubah dari LIMIT 6 menjadi LIMIT 2 agar rekomendasi tidak terlalu banyak
-    $stmtCareers = $pdo->prepare("SELECT * FROM career_paths WHERE category = ? LIMIT 2");
-    $stmtCareers->execute([$userProfile['interest_area']]);
+    $specific_job = $userProfile['top_skill'];
+    $category = $userProfile['interest_area'];
+
+    // Query ini mencari judul yang SAMA PERSIS dengan top_skill (hasil bobot asesmen) terlebih dahulu
+    // Kemudian digabungkan dengan 1 profesi acak dari kategori yang sama agar total menjadi 2
+    $stmtCareers = $pdo->prepare("
+        (SELECT * FROM career_paths WHERE title = ? AND category = ? LIMIT 1)
+        UNION
+        (SELECT * FROM career_paths WHERE category = ? AND title <> ? ORDER BY RAND() LIMIT 1)
+        LIMIT 2
+    ");
+    
+    $stmtCareers->execute([$specific_job, $category, $category, $specific_job]);
     $careers = $stmtCareers->fetchAll(PDO::FETCH_ASSOC);
 }
 
@@ -73,7 +83,7 @@ include __DIR__ . '/header.php';
     <?php elseif ($userProfile): ?>
         <div class="alert-error">
             <p>No career data yet in database for the <strong><?php echo htmlspecialchars($userProfile['interest_area']); ?></strong> category.</p>
-            <p>Please ensure you have run the SQL commands to insert sample careers into the <code>career_paths</code> table.</p>
+            <p>Please ensure your <code>top_skill</code> in <code>user_assessments</code> matches a <code>title</code> in <code>career_paths</code>.</p>
         </div>
     <?php endif; ?>
 </main>
