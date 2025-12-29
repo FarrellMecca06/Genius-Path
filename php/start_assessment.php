@@ -29,9 +29,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $score = 0;
         $totalQuestions = count($questions);
-        $yes_answers = []; // Menyimpan nomor soal yang dijawab 'yes'
+        $yes_answers = [];
 
-        // 1. Kumpulkan semua jawaban 'yes'
         for ($i = 1; $i <= $totalQuestions; $i++) {
             if (isset($_POST["q{$i}"]) && ($_POST["q{$i}"] === 'yes')) {
                 $score++;
@@ -39,7 +38,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
-        // 2. Tentukan Personality Type berdasarkan persentase total
         $match_percentage = ($score / $totalQuestions);
         if ($match_percentage >= 0.7) {
             $personality_type = 'Strong Match (' . round($match_percentage * 100) . '%)';
@@ -49,14 +47,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $personality_type = 'Low Match (' . round($match_percentage * 100) . '%)';
         }
 
-        // 3. LOGIKA PEMBOBOTAN (Weighted Interest)
-        // Mencari profesi spesifik dengan kecocokan jawaban terbanyak
         $recommended_job = "";
         $max_match = -1;
 
         if (isset($path_mapping[$path])) {
             foreach ($path_mapping[$path] as $job_title => $related_questions) {
-                // Hitung irisan antara jawaban user dan daftar soal profesi
                 $match_count = count(array_intersect($yes_answers, $related_questions));
                 
                 if ($match_count > $max_match) {
@@ -66,7 +61,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
-        // Fallback jika tidak ada jawaban 'yes' sama sekali
         if ($recommended_job === "" || $score === 0) {
             $recommended_job = "General " . $path . " Professional";
         }
@@ -74,7 +68,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $career_values = "Interest determined via {$path} path assessment.";
 
         try {
-            // 4. Simpan hasil spesifik ke kolom 'top_skill'
             $stmt = $pdo->prepare("INSERT INTO user_assessments 
                 (user_id, favorite_subject, interest_area, personality_type, top_skill, career_values)
                 VALUES (?, ?, ?, ?, ?, ?)");
@@ -82,9 +75,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->execute([
                 $user_id,
                 "Assessment-{$path}", 
-                $path, // interest_area
+                $path, 
                 $personality_type,
-                $recommended_job, // Judul profesi spesifik disimpan di top_skill
+                $recommended_job, 
                 $career_values
             ]);
 

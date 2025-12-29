@@ -1,5 +1,4 @@
 <?php
-// footer.php
 ?>
 <footer class="footer">
     <div class="footer-content">

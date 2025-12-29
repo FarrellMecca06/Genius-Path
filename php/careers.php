@@ -8,7 +8,6 @@ if (session_status() === PHP_SESSION_NONE) {
 $userProfile = false;
 $careers = [];
 
-// 1. Fetch the logged-in user's profile from the latest assessment
 if (isset($_SESSION['user_id'])) {
     $current_user_id = $_SESSION['user_id'];
 
@@ -24,12 +23,10 @@ if (isset($_SESSION['user_id'])) {
     $userProfile = $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-// 2. Query for a SINGLE most accurate career based on weighted results
 if ($userProfile) {
-    $specific_job = trim($userProfile['top_skill']); // Remove accidental spaces
+    $specific_job = trim($userProfile['top_skill']); 
     $category = $userProfile['interest_area'];
 
-    // Only fetch 1 record where the title matches the top_skill exactly
     $stmtCareers = $pdo->prepare("SELECT * FROM career_paths WHERE title = ? AND category = ? LIMIT 1");
     $stmtCareers->execute([$specific_job, $category]);
     $careers = $stmtCareers->fetchAll(PDO::FETCH_ASSOC);

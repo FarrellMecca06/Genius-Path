@@ -5,20 +5,13 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-/**
- * LOGIKA 1: CEK SESI AKTIF
- * Jika user sudah login dan mencoba mengakses halaman login lagi,
- * kita arahkan ke halaman yang relevan.
- */
 if (isset($_SESSION['user_id'])) {
     $stmtCheck = $pdo->prepare("SELECT id FROM user_assessments WHERE user_id = ? LIMIT 1");
     $stmtCheck->execute([$_SESSION['user_id']]);
     
     if ($stmtCheck->fetch()) {
-        // Sudah ada hasil quiz -> ke Career Recommendations
         wp_redirect(home_url('/careers.php')); 
     } else {
-        // Belum ada hasil quiz -> ke Self Discovery
         wp_redirect(home_url('/self_discovery.php'));
     }
     exit;
@@ -26,9 +19,6 @@ if (isset($_SESSION['user_id'])) {
 
 $error = "";
 
-/**
- * LOGIKA 2: PROSES LOGIN (POST)
- */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email    = trim($_POST['email'] ?? '');
     $password = $_POST['password'] ?? '';
@@ -41,19 +31,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($user && password_verify($password, $user['password_hash'])) {
-            // Set Session
             $_SESSION['user_id']        = $user['id'];
             $_SESSION['user_full_name'] = $user['full_name'];
 
-            // Cek apakah user ini sudah pernah ikut assessment
             $stmtCheck = $pdo->prepare("SELECT id FROM user_assessments WHERE user_id = ? LIMIT 1");
             $stmtCheck->execute([$user['id']]);
 
             if ($stmtCheck->fetch()) {
-                // Jika sudah ada data di user_assessments -> ke Careers
                 wp_redirect(home_url('/careers.php'));
             } else {
-                // Jika user baru/belum assessment -> ke Self Discovery
                 wp_redirect(home_url('/self_discovery.php'));
             }
             exit;
