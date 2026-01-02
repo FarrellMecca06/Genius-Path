@@ -18,9 +18,9 @@ $userName = $_SESSION['user_full_name'] ?? null;
 
 <nav class="navbar">
     <div class="nav-left">
-        <a href="<?php echo home_url(); ?>" class="logo" style="text-decoration: none;">
-            GeniusPath<span></span>
-        </a>
+    <a href="<?php echo home_url(); ?>" class="logo">
+    <img src="<?php echo get_template_directory_uri(); ?>/../image/logo.png" alt="GeniusPath Logo" class="nav-logo-img">
+    </a>
         <ul class="nav-links">
             <li><a href="<?php echo home_url(); ?>">Home</a></li>
             <li><a href="<?php echo home_url('/self_discovery.php'); ?>">Self Discovery</a></li>
