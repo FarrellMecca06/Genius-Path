@@ -20,7 +20,7 @@ if (isset($_SESSION['user_id']) && !$is_admin) {
 }
 
 if (isset($_SESSION['admin_id']) && $is_admin) {
-    wp_redirect(home_url('/admin-dashboard.php'));
+    wp_redirect(home_url('/wp-content/themes/Genius-Path/AdminPage/'));
     exit;
 }
 
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($user && password_verify($password, $user['password_hash'])) {
                 $_SESSION['admin_id']        = $user['id'];
                 $_SESSION['admin_full_name'] = $user['full_name'];
-                wp_redirect(home_url('/admin-dashboard.php'));
+                wp_redirect(home_url('/wp-content/themes/Genius-Path/AdminPage/'));
                 exit;
             } else {
                 $error = "Invalid email or password.";
