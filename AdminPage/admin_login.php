@@ -1,25 +1,16 @@
 <?php
-include __DIR__ . '/config.php';
+// Include config from parent directories
+$config_path = __DIR__ . '/../php/config.php';
+if (!file_exists($config_path)) {
+    $config_path = __DIR__ . '/config.php';
+}
+include $config_path;
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-$is_admin = isset($_GET['type']) && $_GET['type'] === 'admin';
-
-if (isset($_SESSION['user_id']) && !$is_admin) {
-    $stmtCheck = $pdo->prepare("SELECT id FROM user_assessments WHERE user_id = ? LIMIT 1");
-    $stmtCheck->execute([$_SESSION['user_id']]);
-    
-    if ($stmtCheck->fetch()) {
-        wp_redirect(home_url('/careers.php')); 
-    } else {
-        wp_redirect(home_url('/self_discovery.php'));
-    }
-    exit;
-}
-
-if (isset($_SESSION['admin_id']) && $is_admin) {
+if (isset($_SESSION['admin_id'])) {
     wp_redirect(home_url('/admin-dashboard.php'));
     exit;
 }
@@ -33,53 +24,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($email === '' || $password === '') {
         $error = "Please fill in both email and password.";
     } else {
-        if ($is_admin) {
-            $stmt = $pdo->prepare("SELECT id, full_name, password_hash FROM admins WHERE email = ? LIMIT 1");
-            $stmt->execute([$email]);
-            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt = $pdo->prepare("SELECT id, full_name, password_hash FROM admins WHERE email = ? LIMIT 1");
+        $stmt->execute([$email]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            if ($user && password_verify($password, $user['password_hash'])) {
-                $_SESSION['admin_id']        = $user['id'];
-                $_SESSION['admin_full_name'] = $user['full_name'];
-                wp_redirect(home_url('/admin-dashboard.php'));
-                exit;
-            } else {
-                $error = "Invalid email or password.";
-            }
+        if ($user && password_verify($password, $user['password_hash'])) {
+            $_SESSION['admin_id']        = $user['id'];
+            $_SESSION['admin_full_name'] = $user['full_name'];
+            wp_redirect(home_url('/admin-dashboard.php'));
+            exit;
         } else {
-            $stmt = $pdo->prepare("SELECT id, full_name, password_hash FROM users WHERE email = ? LIMIT 1");
-            $stmt->execute([$email]);
-            $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-            if ($user && password_verify($password, $user['password_hash'])) {
-                $_SESSION['user_id']        = $user['id'];
-                $_SESSION['user_full_name'] = $user['full_name'];
-
-                $stmtCheck = $pdo->prepare("SELECT id FROM user_assessments WHERE user_id = ? LIMIT 1");
-                $stmtCheck->execute([$user['id']]);
-
-                if ($stmtCheck->fetch()) {
-                    wp_redirect(home_url('/careers.php'));
-                } else {
-                    wp_redirect(home_url('/self_discovery.php'));
-                }
-                exit;
-
-            } else {
-                $error = "Invalid email or password.";
-            }
+            $error = "Invalid email or password.";
         }
     }
 }
-
-// Don't include header/footer for cleaner login page
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $is_admin ? 'Admin Login' : 'Login'; ?> - GeniusPath</title>
+    <title>Admin Login - GeniusPath</title>
     <link rel="stylesheet" href="<?php echo home_url('/wp-content/themes/Genius-Path/php/style.css'); ?>">
     <style>
         html, body {
@@ -333,7 +298,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </svg>
                 </div>
                 <h1>GeniusPath</h1>
-                <p><?php echo $is_admin ? 'Administrator Panel' : 'Kelola seluruh platform GeniusPath'; ?></p>
+                <p>Selamat Datang Admin</p>
                 
                 <div class="login-illustration">
                     <svg width="150" height="150" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -347,10 +312,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="login-right">
             <div class="login-form-container">
                 <div class="login-header">
-                    <h2><?php echo $is_admin ? 'Login Admin' : 'Login'; ?></h2>
+                    <h2>Login Admin</h2>
                     <div class="login-tabs">
-                        <a href="<?php echo home_url('/login.php'); ?>" class="login-tab <?php echo !$is_admin ? 'active' : ''; ?>">Pengguna</a>
-                        <a href="<?php echo home_url('/login.php?type=admin'); ?>" class="login-tab <?php echo $is_admin ? 'active' : ''; ?>">Admin</a>
+                        <a href="<?php echo home_url('/login.php'); ?>" class="login-tab">Pengguna</a>
+                        <a href="<?php echo home_url('/admin-login.php'); ?>" class="login-tab active">Admin</a>
                     </div>
                 </div>
 
@@ -360,7 +325,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <form method="POST" action="">
                     <div class="form-group">
-                        <label for="email"><?php echo $is_admin ? 'Email Admin' : 'Email'; ?></label>
+                        <label for="email">Username</label>
                         <input type="email" id="email" name="email" placeholder="Enter your email" required>
                     </div>
 
@@ -375,12 +340,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
 
                     <button type="submit" class="login-submit">Login</button>
-
-                    <?php if (!$is_admin): ?>
-                        <p class="login-footer-text">
-                            New here? <a href="<?php echo home_url('/register.php'); ?>">Create your free account</a>
-                        </p>
-                    <?php endif; ?>
                 </form>
             </div>
         </div>
