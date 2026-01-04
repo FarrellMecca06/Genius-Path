@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db:3306
--- Generation Time: Jan 03, 2026 at 07:42 PM
+-- Generation Time: Jan 04, 2026 at 06:08 AM
 -- Server version: 11.4.9-MariaDB-ubu2404
 -- PHP Version: 8.4.14
 
@@ -49,20 +49,25 @@ INSERT INTO `admins` (`id`, `full_name`, `email`, `password_hash`, `created_at`)
 --
 
 CREATE TABLE `career_paths` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `category` varchar(100) NOT NULL,
   `description` text DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `required_skills` text DEFAULT NULL,
+  `education_path` varchar(255) DEFAULT NULL,
+  `salary_range` varchar(100) DEFAULT NULL,
+  `outlook` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
 --
 -- Dumping data for table `career_paths`
 --
 
-INSERT INTO `career_paths` (`id`, `name`, `description`, `created_at`) VALUES
-(1, 'Software Engineer', 'Develop and maintain software applications', '2026-01-03 18:39:10'),
-(2, 'Data Scientist', 'Analyze data and build predictive models', '2026-01-03 18:39:10'),
-(3, 'Product Manager', 'Lead product development and strategy', '2026-01-03 18:39:10');
+INSERT INTO `career_paths` (`id`, `title`, `category`, `description`, `required_skills`, `education_path`, `salary_range`, `outlook`) VALUES
+(1, 'Software Engineer', 'Technology', 'Membangun aplikasi', NULL, NULL, NULL, NULL),
+(2, 'Data Scientist', 'Technology', 'Analisis data', NULL, NULL, NULL, NULL),
+(3, 'Marketing Manager', 'Business', 'Strategi pemasaran', NULL, NULL, NULL, NULL),
+(4, 'UI/UX Designer', 'Design', 'Desain interface', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -97,10 +102,23 @@ INSERT INTO `users` (`id`, `full_name`, `gender`, `email`, `password_hash`, `edu
 CREATE TABLE `user_assessments` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
+  `favorite_subject` varchar(100) DEFAULT NULL,
+  `interest_area` varchar(100) DEFAULT NULL,
+  `personality_type` varchar(100) DEFAULT NULL,
+  `top_skill` varchar(150) DEFAULT NULL,
+  `career_values` text DEFAULT NULL,
   `career_path_id` int(11) DEFAULT NULL,
   `score` int(11) DEFAULT NULL,
   `completed_at` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `user_assessments`
+--
+
+INSERT INTO `user_assessments` (`id`, `user_id`, `favorite_subject`, `interest_area`, `personality_type`, `top_skill`, `career_values`, `career_path_id`, `score`, `completed_at`) VALUES
+(1, 1, 'Assessment-Saintek', 'Saintek', 'Strong Match (80%)', 'Data Scientist', 'Interest determined via Saintek path assessment.', NULL, NULL, '2026-01-04 06:02:11'),
+(2, 1, 'Assessment-Soshum', 'Soshum', 'Strong Match (100%)', 'Marketing Manager', 'Interest determined via Soshum path assessment.', NULL, NULL, '2026-01-04 06:06:26');
 
 -- --------------------------------------------------------
 
@@ -169,7 +187,7 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT for table `career_paths`
 --
 ALTER TABLE `career_paths`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -181,7 +199,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `user_assessments`
 --
 ALTER TABLE `user_assessments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `user_progress`
