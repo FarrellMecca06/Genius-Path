@@ -536,3 +536,55 @@ h1, h2, h3, h4 {
     grid-template-columns: 1fr;
   }
 }
+
+/* Default (Desktop) */
+.card-badge {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+}
+
+.card-tech {
+  background: #f0f9ff;
+  border: 1px solid #bae6fd; 
+}
+.card-tech .card-badge {
+  background: #bae6fd;
+  color: #0369a1;
+}
+
+.card-business {
+  background: #e1fdf3;
+  border: 1px solid #cffafb;
+}
+.card-business .card-badge {
+  background: #cffafb;
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .header {
+    font-size: 1.5rem;
+    padding: 1.2rem;
+  }
+  .body {
+    font-size: 1rem;
+    padding: 1.2rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .header {
+    font-size: 1.1rem;
+    padding: 0.7rem;
+  }
+  .body {
+    font-size: 0.95rem;
+    padding: 0.7rem;
+  }
+}
