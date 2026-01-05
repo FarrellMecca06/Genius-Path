@@ -45,7 +45,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           $newUserId = $pdo->lastInsertId();
           $success = "Account created successfully! Redirecting to login...";
           
-          // Redirect ke login page setelah registrasi berhasil
           wp_redirect(home_url('/login.php'));
           exit;
 
@@ -81,28 +80,28 @@ include  __DIR__ . '/header-minimal.php';
       <h2>Basic information</h2>
       <div class="form-grid">
         <div class="form-field">
-          <label>Full name *</label>
+          <label>Full name</label>
           <input type="text" name="full_name" required>
         </div>
         <div class="form-field">
-          <label>Gender *</label>
+          <label>Gender</label>
           <div style="display: flex; gap: 1.5rem; align-items: center;">
-            <label style="display: flex; align-items: center; margin: 0; font-weight: normal;">
+            <label style="display: flex; align-items: center; margin: 0; font-weight: normal; cursor: pointer;">
               <input type="radio" name="gender" value="Male" required style="margin-right: 0.5rem;">
-              Male
+              ♂ Male
             </label>
-            <label style="display: flex; align-items: center; margin: 0; font-weight: normal;">
+            <label style="display: flex; align-items: center; margin: 0; font-weight: normal; cursor: pointer;">
               <input type="radio" name="gender" value="Female" required style="margin-right: 0.5rem;">
-              Female
+              ♀ Female
             </label>
           </div>
         </div>
         <div class="form-field">
-          <label>Email *</label>
+          <label>Email</label>
           <input type="email" name="email" required>
         </div>
         <div class="form-field">
-          <label>Password *</label>
+          <label>Password</label>
           <input type="password" name="password" required>
         </div>
         <div class="form-field">
