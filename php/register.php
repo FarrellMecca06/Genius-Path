@@ -43,11 +43,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       if ($stmt->execute([$full_name, $gender, $email, $password_hash, $education_level, $grade_or_major])) {
           
           $newUserId = $pdo->lastInsertId();
-          $success = "Account created successfully! You can now login.";
-          $_SESSION['user_id'] = $newUserId;
-          $_SESSION['user_full_name'] = $full_name;
-
-          wp_redirect(home_url('/self_discovery.php'));
+          $success = "Account created successfully! Redirecting to login...";
+          
+          // Redirect ke login page setelah registrasi berhasil
+          wp_redirect(home_url('/login.php'));
           exit;
 
       } else {
@@ -57,10 +56,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 }
 
-include  __DIR__ . '/header.php';
+include  __DIR__ . '/header-minimal.php';
 ?>
 <main class="page narrow">
-  <section class="page-header">
+  <section class="page-header" style="text-align: center; margin-bottom: 2rem;">
+    <img src="<?php echo get_template_directory_uri(); ?>/../image/logo.png" alt="GeniusPath Logo" style="height: 250px; width: auto; margin-bottom: 1.5rem;">
     <h1>Create your account</h1>
     <p>For high school and university students.</p>
   </section>
