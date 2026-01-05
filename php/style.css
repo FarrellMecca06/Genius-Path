@@ -522,21 +522,6 @@ h1, h2, h3, h4 {
     margin-bottom: 0.5rem;
 }
 
-@media (max-width: 768px) {
-  .nav-left .nav-links {
-    display: none;
-  }
-  .hero {
-    grid-template-columns: 1fr;
-  }
-  .hero-image {
-    order: -1;
-  }
-  .cards-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
 .card-badge {
   position: absolute;
   top: 15px;
@@ -564,67 +549,30 @@ h1, h2, h3, h4 {
   background: #cffafb;
 }
 
-/* Tablet */
-@media (max-width: 992px) {
-    .hero {
-        grid-template-columns: 1fr; /* Menumpuk kolom menjadi satu */
-        text-align: center;
-        gap: 2rem;
-    }
-
-    .hero-text h1 {
-        font-size: 2.5rem; /* Mengecilkan judul agar tidak memenuhi layar */
-    }
-
-    .hero-actions {
-        justify-content: center;
-    }
-
-    .hero-image {
-        order: -1; /* Gambar muncul di atas teks */
-    }
+/* Mobile First Approach */
+.container {
+  width: 100%;
+  padding: 15px;
 }
 
-/* Mobile */
-@media (max-width: 600px) {
-    .navbar > div {
-        padding: 0 1rem;
-    }
+/* Tablet (768px and up) */
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+    margin: 0 auto;
+  }
+}
 
-    /* Menyembunyikan link navigasi yang berderet agar tidak berantakan */
-    .nav-links {
-        display: none; 
-    }
+/* Desktop (1024px and up) */
+@media (min-width: 1024px) {
+  .container {
+    width: 970px;
+  }
+}
 
-    .hero-text h1 {
-        font-size: 2rem;
-    }
-
-    .hero-actions {
-        flex-direction: column; /* Tombol tumpuk vertikal agar mudah diklik */
-        gap: 0.8rem;
-    }
-
-    .btn-primary, .btn-outline {
-        width: 100%; /* Tombol lebar penuh di HP */
-    }
-
-    .form-card {
-        padding: 1.2rem;
-        width: 95%; /* Form tidak terlalu mepet ke pinggir layar */
-    }
-
-    .question-options {
-        flex-direction: column; /* Opsi radio button tumpuk vertikal */
-        align-items: flex-start;
-        gap: 1rem;
-    }
-
-    .cards-grid {
-        grid-template-columns: 1fr; /* Memastikan kartu hanya 1 kolom */
-    }
-
-    .big-score {
-        font-size: 1.8rem;
-    }
+/* Large Desktop (1200px and up) */
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+  }
 }

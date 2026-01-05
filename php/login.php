@@ -10,9 +10,9 @@ $is_admin = isset($_GET['type']) && $_GET['type'] === 'admin';
 if (isset($_SESSION['user_id']) && !$is_admin) {
     $stmtCheck = $pdo->prepare("SELECT id FROM user_assessments WHERE user_id = ? LIMIT 1");
     $stmtCheck->execute([$_SESSION['user_id']]);
-    
+
     if ($stmtCheck->fetch()) {
-        wp_redirect(home_url('/careers.php')); 
+        wp_redirect(home_url('/careers.php'));
     } else {
         wp_redirect(home_url('/self_discovery.php'));
     }
@@ -27,7 +27,7 @@ if (isset($_SESSION['admin_id']) && $is_admin) {
 $error = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email    = trim($_POST['email'] ?? '');
+    $email = trim($_POST['email'] ?? '');
     $password = $_POST['password'] ?? '';
 
     if ($email === '' || $password === '') {
@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($user && password_verify($password, $user['password_hash'])) {
-                $_SESSION['admin_id']        = $user['id'];
+                $_SESSION['admin_id'] = $user['id'];
                 $_SESSION['admin_full_name'] = $user['full_name'];
                 wp_redirect(home_url('/wp-content/themes/Genius-Path/AdminPage/'));
                 exit;
@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($user && password_verify($password, $user['password_hash'])) {
-                $_SESSION['user_id']        = $user['id'];
+                $_SESSION['user_id'] = $user['id'];
                 $_SESSION['user_full_name'] = $user['full_name'];
 
                 $stmtCheck = $pdo->prepare("SELECT id FROM user_assessments WHERE user_id = ? LIMIT 1");
@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if ($stmtCheck->fetch()) {
                     wp_redirect(home_url('/careers.php'));
                 } else {
-                    wp_redirect(home_url('/self_discovery.php'));
+                    wp_redirect(home_url('/index.php'));
                 }
                 exit;
 
@@ -74,13 +74,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - GeniusPath</title>
     <link rel="stylesheet" href="<?php echo home_url('/wp-content/themes/Genius-Path/php/style.css'); ?>">
     <style>
-        html, body {
+        html,
+        body {
             margin: 0;
             padding: 0;
             height: 100%;
@@ -94,19 +96,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         .login-left {
             flex: 1;
-            background: linear-gradient(135deg, #4a9fd8 0%, #3a8bc8 100%);
+            background: #1C4D8D;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 2rem;
+            padding: 1rem;
             color: white;
         }
 
         .login-left-content {
             text-align: center;
-            max-width: 400px;
+            margin-top: 5%;
         }
+
 
         .login-left h1 {
             font-size: 3rem;
@@ -219,18 +222,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             border: 1px solid #fee2e2;
         }
 
-        @media (max-width: 768px) {
-            .login-container { flex-direction: column; }
-            .login-left { min-height: 250px; }
-            .login-right { min-height: 100vh; }
+        @media (max-width: 1024px) {
+            .login-left h1 {
+                font-size: 2.5rem;
+            }
+
+            .login-left p {
+                font-size: 1rem;
+            }
+
+            .login-form-container {
+                max-width: 380px;
+            }
         }
+
+        @media (max-width: 768px) {
+            .login-container {
+                flex-direction: column;
+            }
+
+            .login-left {
+                min-height: 200px;
+                padding: 2rem 1rem;
+            }
+
+            .login-right {
+                min-height: auto;
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .login-left {
+                min-height: 180px;
+                padding: 1.5rem 1rem;
+            }
+
+            .login-right {
+                padding: 1.5rem 1rem;
+            }
     </style>
 </head>
+
 <body>
     <div class="login-container">
         <div class="login-left">
             <div class="login-left-content">
-                <h1>Hi, Whats Up!</h1>
+                <img src="wp-content/themes/Genius-Path/image/logo.png" style="width:672px;height: 384px;"
+                    alt="GeniusPath Logo">
             </div>
         </div>
 
@@ -250,10 +289,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <input type="email" id="email" name="email" placeholder="Enter your email" required>
                     </div>
 
-                    <div class="form-group"Email
-                        <label for="password">Password</label>
+                    <div class="form-group" Email <label for="password">Password</label>
                         <div class="password-wrapper">
-                            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                            <input type="password" id="password" name="password" placeholder="Enter your password"
+                                required>
                             <button type="button" class="password-toggle" onclick="togglePassword()">
                             </button>
                         </div>
@@ -263,7 +302,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     <?php if (!$is_admin): ?>
                         <div style="text-align: center; margin-top: 1.5rem; color: #64748b; font-size: 0.9rem;">
-                            New here? <a href="<?php echo home_url('/register.php'); ?>" style="color: #4a9fd8; font-weight: 600; text-decoration: none;">Create your free account</a>
+                            New here? <a href="<?php echo home_url('/register.php'); ?>"
+                                style="color: #4a9fd8; font-weight: 600; text-decoration: none;">Create your free
+                                account</a>
                         </div>
                     <?php endif; ?>
                 </form>
@@ -278,4 +319,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     </script>
 </body>
+
 </html>

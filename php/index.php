@@ -1,28 +1,30 @@
-<?php 
+<?php
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-include  __DIR__ . '/header.php'; ?>
+include __DIR__ . '/header.php'; ?>
 <main class="page">
-<section class="hero">
-    <div class="hero-text">
-    <h1>Find Your Path. Build Your Future.</h1>
-        <p>
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Find Your Path. Build Your Future.</h1>
+            <p>
             </p>
-        <div class="hero-actions">
-           <a href="<?php echo home_url('/self_discovery.php'); ?>" class="btn-primary">Start Self Discovery</a>
+            <div class="hero-actions">
+                <a href="<?php echo home_url('/self_discovery.php'); ?>" class="btn-primary">Start Self Discovery</a>
+            </div>
+            <div class="hero-tags">
+                <span>Career Roadmaps</span>
+                <span>Study Analytics</span>
+                <span>Motivation Boost</span>
+            </div>
         </div>
-        <div class="hero-tags">
-            <span>Career Roadmaps</span>
-            <span>Study Analytics</span>
-            <span>Motivation Boost</span>
+        <div class="hero-image">
+            <img src="<?php echo get_template_directory_uri(); ?>/../image/utama.png"
+                alt="Illustration of students exploring career paths">
         </div>
-    </div> <div class="hero-image">
-        <img src="<?php echo get_template_directory_uri(); ?>/../image/utama.png" alt="Illustration of students exploring career paths">
-    </div>
 
-</section>
+    </section>
 
     <section class="cards-section">
 
@@ -55,10 +57,10 @@ include  __DIR__ . '/header.php'; ?>
                 </a>
             </article>
 
-         
+
         </div>
     </section>
 </main>
-<?php 
-include __DIR__ . '/footer.php'; 
+<?php
+include __DIR__ . '/footer.php';
 ?>

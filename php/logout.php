@@ -7,6 +7,6 @@ $_SESSION = [];
 session_unset();
 session_destroy();
 
-wp_redirect(home_url());
+wp_redirect(home_url('/login.php'));
 exit;
 ?>

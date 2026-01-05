@@ -1,13 +1,13 @@
 <?php
-include  __DIR__ . '/config.php';
+include __DIR__ . '/config.php';
 
 if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }
 
 if (isset($_SESSION['user_id'])) {
-    wp_redirect(home_url('/self_discovery.php'));
-    exit;
+  wp_redirect(home_url('/self_discovery.php'));
+  exit;
 }
 
 $error = "";
@@ -24,9 +24,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if ($full_name === '' || $email === '' || $password === '') {
     $error = "Please fill in all required fields.";
   } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-     $error = "Invalid email format.";
+    $error = "Invalid email format.";
   } else {
-    
+
     $check = $pdo->prepare("SELECT id FROM users WHERE email = ? LIMIT 1");
     $check->execute([$email]);
 
@@ -39,29 +39,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $stmt = $pdo->prepare(
         "INSERT INTO users (full_name, gender, email, password_hash, education_level, grade_or_major) VALUES (?,?,?,?,?,?)"
       );
-      
+
       if ($stmt->execute([$full_name, $gender, $email, $password_hash, $education_level, $grade_or_major])) {
-          
-          $newUserId = $pdo->lastInsertId();
-          $success = "Account created successfully! Redirecting to login...";
-          
-          wp_redirect(home_url('/login.php'));
-          exit;
+
+        $newUserId = $pdo->lastInsertId();
+        $success = "Account created successfully! Redirecting to login...";
+
+        wp_redirect(home_url('/login.php'));
+        exit;
 
       } else {
-          $error = "Failed to create account. Please try again.";
+        $error = "Failed to create account. Please try again.";
       }
     }
   }
 }
 
-include  __DIR__ . '/header-minimal.php';
+include __DIR__ . '/header-minimal.php';
 ?>
 <main class="page narrow">
   <section class="page-header" style="text-align: center; margin-bottom: 2rem;">
-    <img src="<?php echo get_template_directory_uri(); ?>/../image/logo.png" alt="GeniusPath Logo" style="height: 250px; width: auto; margin-bottom: 1.5rem;">
+    <img src="<?php echo get_template_directory_uri(); ?>/../image/logo.png" alt="GeniusPath Logo"
+      style="width:672px;height: 384px;F margin-bottom: 1.5rem;">
     <h1>Create your account</h1>
-    <p>For high school and university students.</p>
   </section>
 
   <?php if ($error): ?>
@@ -70,8 +70,9 @@ include  __DIR__ . '/header-minimal.php';
 
   <?php if ($success): ?>
     <div class="alert-success">
-        <?php echo htmlspecialchars($success); ?> 
-        <a href="<?php echo home_url('/login.php'); ?>" style="text-decoration: underline; font-weight: bold;">Login here</a>.
+      <?php echo htmlspecialchars($success); ?>
+      <a href="<?php echo home_url('/login.php'); ?>" style="text-decoration: underline; font-weight: bold;">Login
+        here</a>.
     </div>
   <?php endif; ?>
 
@@ -81,7 +82,7 @@ include  __DIR__ . '/header-minimal.php';
       <div class="form-grid">
         <div class="form-field">
           <label>Full name</label>
-          <input type="text" name="full_name" required>
+          <input type="text" name="full_name" required placeholder="Enter Fullname">
         </div>
         <div class="form-field">
           <label>Gender</label>
@@ -91,19 +92,25 @@ include  __DIR__ . '/header-minimal.php';
               ♂ Male
             </label>
             <label style="display: flex; align-items: center; margin: 0; font-weight: normal; cursor: pointer;">
-              <input type="radio" name="gender" value="Female" required style="margin-right: 0.5rem;">
+              <input type="radio" name="gender" value="Female">
               ♀ Female
             </label>
           </div>
         </div>
+
+
         <div class="form-field">
           <label>Email</label>
-          <input type="email" name="email" required>
+          <input type="email" name="email" required placeholder="Email@address.com">
         </div>
+
+
         <div class="form-field">
           <label>Password</label>
-          <input type="password" name="password" required>
+          <input type="password" name="password" required placeholder="Password">
         </div>
+
+
         <div class="form-field">
           <label>Education level</label>
           <select name="education_level">
@@ -111,9 +118,11 @@ include  __DIR__ . '/header-minimal.php';
             <option value="University">University</option>
           </select>
         </div>
+
+
         <div class="form-field">
           <label>Grade / Major</label>
-          <input type="text" name="grade_or_major" placeholder="Grade 11 Science / Informatics">
+          <input type="text" name="grade_or_major" placeholder="Grade / Major">
         </div>
       </div>
 
@@ -125,6 +134,6 @@ include  __DIR__ . '/header-minimal.php';
     </form>
   <?php endif; ?>
 </main>
-<?php 
-include __DIR__ . '/footer.php'; 
+<?php
+include __DIR__ . '/footer.php';
 ?>
