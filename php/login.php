@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $is_admin ? 'Admin Login' : 'Login'; ?> - GeniusPath</title>
+    <title>Login - GeniusPath</title>
     <link rel="stylesheet" href="<?php echo home_url('/wp-content/themes/Genius-Path/php/style.css'); ?>">
     <style>
         html, body {
@@ -237,11 +237,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="login-right">
             <div class="login-form-container">
                 <div class="login-header">
-                    <h2><?php echo $is_admin ? 'Login Admin' : 'Login'; ?></h2>
-                    <div class="login-tabs">
-                        <a href="<?php echo home_url('/login.php'); ?>" class="login-tab <?php echo !$is_admin ? 'active' : ''; ?>">Pengguna</a>
-                        <a href="<?php echo home_url('/login.php?type=admin'); ?>" class="login-tab <?php echo $is_admin ? 'active' : ''; ?>">Admin</a>
-                    </div>
+                    <h2>Login</h2>
                 </div>
 
                 <?php if ($error): ?>
@@ -254,7 +250,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <input type="email" id="email" name="email" placeholder="Enter your email" required>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group"Email
                         <label for="password">Password</label>
                         <div class="password-wrapper">
                             <input type="password" id="password" name="password" placeholder="Enter your password" required>

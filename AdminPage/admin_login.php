@@ -1,17 +1,22 @@
 <?php
-// Include config from parent directories
-$config_path = __DIR__ . '/../php/config.php';
-if (!file_exists($config_path)) {
-    $config_path = __DIR__ . '/config.php';
-}
-include $config_path;
-
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+// Standalone Admin Login - Independent
+// Remove any CSP headers dari WordPress
+if (function_exists('header_remove')) {
+    header_remove('Content-Security-Policy');
+    header_remove('Content-Security-Policy-Report-Only');
 }
 
-if (isset($_SESSION['admin_id'])) {
-    wp_redirect(home_url('/admin-dashboard.php'));
+include __DIR__ . '/config.php';
+
+// Set permissive CSP untuk admin panel
+header("Content-Security-Policy: default-src *; script-src * 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'; img-src *; font-src *; connect-src *;");
+header("X-Content-Type-Options: nosniff");
+header("X-Frame-Options: SAMEORIGIN");
+
+// Clear any lingering sessions
+if (!isset($_GET['_reset']) && isset($_SESSION['admin_id'])) {
+    $base_url = "http://" . $_SERVER['HTTP_HOST'] . "/WAD-Project/wordpress/wp-content/themes/Genius-Path/AdminPage/";
+    header("Location: " . $base_url . "AdminDashboard.php");
     exit;
 }
 
@@ -31,7 +36,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($user && password_verify($password, $user['password_hash'])) {
             $_SESSION['admin_id']        = $user['id'];
             $_SESSION['admin_full_name'] = $user['full_name'];
-            wp_redirect(home_url('/admin-dashboard.php'));
+            $base_url = "http://" . $_SERVER['HTTP_HOST'] . "/WAD-Project/wordpress/wp-content/themes/Genius-Path/AdminPage/";
+            header("Location: " . $base_url . "AdminDashboard.php");
             exit;
         } else {
             $error = "Invalid email or password.";
@@ -42,10 +48,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login - GeniusPath</title>
-    <link rel="stylesheet" href="<?php echo home_url('/wp-content/themes/Genius-Path/php/style.css'); ?>">
+    <link rel="stylesheet" href="./style.css">
     <style>
         html, body {
             margin: 0;
@@ -313,10 +320,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="login-form-container">
                 <div class="login-header">
                     <h2>Login Admin</h2>
-                    <div class="login-tabs">
-                        <a href="<?php echo home_url('/login.php'); ?>" class="login-tab">Pengguna</a>
-                        <a href="<?php echo home_url('/admin-login.php'); ?>" class="login-tab active">Admin</a>
-                    </div>
                 </div>
 
                 <?php if ($error): ?>
@@ -333,7 +336,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <label for="password">Password</label>
                         <div class="password-wrapper">
                             <input type="password" id="password" name="password" placeholder="Enter your password" required>
-                            <button type="button" class="password-toggle" onclick="togglePassword()">
+                            <button type="button" class="password-toggle" id="password-toggle-btn">
                                 <span id="password-icon">👁️</span>
                             </button>
                         </div>
@@ -346,18 +349,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <script>
-        function togglePassword() {
-            const passwordField = document.getElementById('password');
-            const icon = document.getElementById('password-icon');
-            
-            if (passwordField.type === 'password') {
-                passwordField.type = 'text';
-                icon.textContent = '🙈';
-            } else {
-                passwordField.type = 'password';
-                icon.textContent = '👁️';
+        document.addEventListener('DOMContentLoaded', function() {
+            const passwordToggleBtn = document.getElementById('password-toggle-btn');
+            if (passwordToggleBtn) {
+                passwordToggleBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const passwordField = document.getElementById('password');
+                    const icon = document.getElementById('password-icon');
+                    
+                    if (passwordField.type === 'password') {
+                        passwordField.type = 'text';
+                        icon.textContent = '🙈';
+                    } else {
+                        passwordField.type = 'password';
+                        icon.textContent = '👁️';
+                    }
+                });
             }
-        }
+        });
     </script>
 </body>
 </html>

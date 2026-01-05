@@ -1,5 +1,5 @@
 <?php
-include 'admin_header.php';
+include 'AdminHeader.php';
 
 /* 1) Total active students */
 $stmt = $pdo->query("SELECT COUNT(*) AS total_students FROM users WHERE role = 'student' AND is_active = 1");
