@@ -237,7 +237,7 @@ ALTER TABLE `user_progress`
 --
 -- Constraints for table `user_assessments`
 --
-ALTER TABLE `user_assessments`
+ALTER TABLE `user_assessments`å
   ADD CONSTRAINT `user_assessments_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `user_assessments_ibfk_2` FOREIGN KEY (`career_path_id`) REFERENCES `career_paths` (`id`) ON DELETE SET NULL;
 
