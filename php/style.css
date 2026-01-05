@@ -118,6 +118,7 @@ h1, h2, h3, h4 {
   border: 2px solid transparent;
   text-decoration: none;
   font-size: 1rem;
+  display: inline-block;
 }
 
 .btn-primary {
@@ -171,6 +172,7 @@ h1, h2, h3, h4 {
   display: flex;
   gap: 1rem;
   margin-bottom: 1.5rem;
+  flex-wrap: wrap;
 }
 
 .hero-tags span {
@@ -182,6 +184,7 @@ h1, h2, h3, h4 {
   font-size: 0.9rem;
   font-weight: 500;
   margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .hero-image {
@@ -216,9 +219,9 @@ h1, h2, h3, h4 {
 }
 
 .card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
-    border-color: var(--primary-color);
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary-color);
 }
 
 .card h3 {
@@ -517,22 +520,353 @@ h1, h2, h3, h4 {
 }
 
 .score-card p {
-    font-size: 0.95rem;
-    color: var(--text-color);
-    margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--text-color);
+  margin-bottom: 0.5rem;
 }
 
+/* ========================================
+   RESPONSIVE BREAKPOINTS
+   ======================================== */
+
+/* Tablet (768px - 1024px) */
+@media (max-width: 1024px) {
+  .page {
+    padding: 1.25rem 1rem 2.5rem;
+  }
+
+  .hero {
+    gap: 3rem;
+    padding: 2.5rem 0;
+  }
+
+  .hero-text h1 {
+    font-size: 2.8rem;
+  }
+
+  .hero-text p {
+    font-size: 1.05rem;
+  }
+
+  .cards-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .nav-logo-img {
+    height: 160px;
+  }
+}
+
+/* Tablet Portrait and Small Tablets (481px - 768px) */
 @media (max-width: 768px) {
+  .page {
+    padding: 1rem 0.875rem 2rem;
+  }
+
+  /* Navigation adjustments */
+  .navbar > div {
+    padding: 0 0.75rem;
+    height: auto;
+    min-height: 60px;
+    flex-wrap: wrap;
+  }
+
   .nav-left .nav-links {
     display: none;
   }
+
+  .nav-logo-img {
+    height: 140px;
+  }
+
+  .nav-right {
+    gap: 0.5rem;
+  }
+
+  .user-pill {
+    font-size: 0.85rem;
+    padding: 0.25rem 0.6rem;
+    margin-right: 0.5rem;
+  }
+
+  .btn-primary, .btn-outline, .btn-ghost {
+    padding: 0.5rem 0.9rem;
+    font-size: 0.9rem;
+  }
+
+  /* Hero section - stack vertically */
   .hero {
     grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 2rem 0;
   }
+
   .hero-image {
     order: -1;
   }
+
+  .hero-text h1 {
+    font-size: 2.2rem;
+  }
+
+  .hero-text p {
+    font-size: 1rem;
+  }
+
+  .hero-actions {
+    gap: 0.75rem;
+  }
+
+  /* Cards grid - single column on tablet */
   .cards-grid {
     grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .card {
+    padding: 1.5rem;
+  }
+
+  .card h3 {
+    font-size: 1.25rem;
+  }
+
+  /* Page headers */
+  .page-header h1 {
+    font-size: 2rem;
+  }
+
+  /* Form adjustments */
+  .form-card {
+    padding: 1.5rem;
+  }
+
+  .form-card h2 {
+    font-size: 1.3rem;
+  }
+
+  /* Question options */
+  .question {
+    font-size: 1.25rem;
+  }
+
+  .question-options {
+    gap: 2rem;
+  }
+
+  .question-options label {
+    font-size: 1.3rem;
+  }
+
+  /* Score cards */
+  .score-card {
+    padding: 1.5rem;
+  }
+
+  .score-card h2 {
+    font-size: 1.5rem;
+  }
+
+  .big-score {
+    font-size: 2rem;
+  }
+}
+
+/* Mobile (320px - 480px) */
+@media (max-width: 480px) {
+  .page {
+    padding: 0.875rem 0.75rem 1.5rem;
+  }
+
+  /* Navigation - compact mobile view */
+  .navbar > div {
+    padding: 0 0.5rem;
+    min-height: 55px;
+  }
+
+  .logo {
+    margin-right: 0.5rem;
+  }
+
+  .nav-logo-img {
+    height: 100px;
+  }
+
+  .user-pill {
+    display: none; /* Hide on very small screens or make it smaller */
+  }
+
+  .btn-primary, .btn-outline, .btn-ghost {
+    padding: 0.45rem 0.75rem;
+    font-size: 0.85rem;
+  }
+
+  /* Hero section - mobile optimized */
+  .hero {
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+  }
+
+  .hero-text h1 {
+    font-size: 1.75rem;
+    line-height: 1.2;
+  }
+
+  .hero-text p {
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .hero-actions .btn-primary,
+  .hero-actions .btn-outline {
+    width: 100%;
+    text-align: center;
+  }
+
+  .hero-tags span {
+    font-size: 0.8rem;
+    padding: 0.25rem 0.6rem;
+  }
+
+  /* Cards - mobile optimized */
+  .cards-grid {
+    gap: 0.875rem;
+    margin-top: 1.5rem;
+  }
+
+  .card {
+    padding: 1.25rem;
+  }
+
+  .card h3 {
+    font-size: 1.15rem;
+  }
+
+  .card p, .card ul li {
+    font-size: 0.9rem;
+  }
+
+  .card-badge {
+    top: 10px;
+    right: 10px;
+    font-size: 0.7rem;
+    padding: 0.25rem 0.6rem;
+  }
+
+  /* Page headers */
+  .page-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .page-header h1 {
+    font-size: 1.65rem;
+  }
+
+  .page-header p {
+    font-size: 0.9rem;
+  }
+
+  /* Forms - mobile optimized */
+  .form-card {
+    padding: 1.25rem;
+  }
+
+  .form-card h2 {
+    font-size: 1.2rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .form-field label {
+    font-size: 0.9rem;
+  }
+
+  .form-field input, 
+  .form-field select, 
+  .form-field textarea {
+    padding: 0.7rem 0.85rem;
+    font-size: 0.95rem;
+  }
+
+  /* Question options - stack vertically on mobile */
+  .question {
+    font-size: 1.1rem;
+  }
+
+  .question-options {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .question-options label {
+    font-size: 1.15rem;
+  }
+
+  /* Score cards */
+  .score-card {
+    padding: 1.25rem;
+  }
+
+  .score-card h2 {
+    font-size: 1.3rem;
+  }
+
+  .score-card h3 {
+    font-size: 1rem;
+    margin-top: 1.25rem;
+  }
+
+  .big-score {
+    font-size: 1.75rem;
+  }
+
+  .score-card p {
+    font-size: 0.9rem;
+  }
+
+  .hint {
+    font-size: 0.8rem;
+  }
+
+  /* Footer */
+  .footer {
+    padding: 1.25rem 0.75rem;
+    font-size: 0.85rem;
+  }
+
+  /* Alerts */
+  .alert-error, .alert-success {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Extra small mobile (max 360px) */
+@media (max-width: 360px) {
+  .hero-text h1 {
+    font-size: 1.5rem;
+  }
+
+  .nav-logo-img {
+    height: 80px;
+  }
+
+  .card {
+    padding: 1rem;
+  }
+
+  .form-card {
+    padding: 1rem;
+  }
+
+  .btn-primary, .btn-outline, .btn-ghost {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.8rem;
   }
 }
