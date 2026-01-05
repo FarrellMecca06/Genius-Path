@@ -88,9 +88,7 @@ include __DIR__ . '/header.php';
                      style="max-width: 100%; height: auto; border-radius: 8px; border: 1px solid #eee;"
                      onerror="this.onerror=null; this.src='<?php echo $fallbackURL; ?>';">
                 
-                <p style="margin-top: 1rem; color: #64748b; font-size: 0.9rem; font-style: italic;">
-                    Full Roadmap for <?php echo htmlspecialchars($result['career_name']); ?>
-                </p>
+                <p style="margin-top: 1rem; color: #64748b; font-size: 0.9rem; font-style: italic;"></p>
             </div>
         </article>
     <?php else: ?>

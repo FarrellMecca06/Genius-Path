@@ -230,7 +230,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="login-container">
         <div class="login-left">
             <div class="login-left-content">
-                <h1>Welcome to Genius Path</h1>
+                <h1>Hi, Whats Up!</h1>
             </div>
         </div>
 
