@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         .login-left {
             flex: 1;
-            background: #1C4D8D;
+            background: #51addds;
             display: flex;
             flex-direction: column;
             justify-content: center;
