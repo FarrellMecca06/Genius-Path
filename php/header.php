@@ -26,7 +26,7 @@ $userName = $_SESSION['user_full_name'] ?? null;
             $img_path = $userData['profile_picture'] ? get_template_directory_uri().'/../image/uploads/'.$userData['profile_picture'] : get_template_directory_uri().'/../image/default-user.png';
             ?>
             <a href="<?php echo home_url('/profile.php'); ?>" class="nav-profile-link">
-                <img src="<?php echo $img_path; ?>" alt="Profile" class="nav-avatar">
+                <img src="<?php echo $img_path; ?>" class="nav-avatar">
             </a>
         <?php endif; ?>
 
