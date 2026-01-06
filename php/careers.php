@@ -5,18 +5,15 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Proteksi login
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit;
 }
 
-// 1. Ambil data nama pengguna
 $stmtUser = $pdo->prepare("SELECT full_name FROM users WHERE id = ?");
 $stmtUser->execute([$_SESSION['user_id']]);
 $user = $stmtUser->fetch();
 
-// 2. Query data karier
 try {
     $stmt = $pdo->prepare("
         SELECT 

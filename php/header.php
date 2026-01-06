@@ -18,7 +18,6 @@ $userName = $_SESSION['user_full_name'] ?? null;
     <div class="nav-left">
         <?php if ($userName): ?>
             <?php 
-            // Cek file config.php secara aman agar tidak putih (blank)
             $config_path = __DIR__ . '/config.php';
             if (file_exists($config_path)) {
                 include_once $config_path;
