@@ -26,28 +26,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $error = "Invalid email format.";
   } else {
-
     $check = $pdo->prepare("SELECT id FROM users WHERE email = ? LIMIT 1");
     $check->execute([$email]);
 
     if ($check->fetch()) {
       $error = "This email is already registered. Please login instead.";
     } else {
-      // Insert User Baru
-      $password_hash = password_hash($password, PASSWORD_DEFAULT);
+      $profile_pic = null;
+      if (!empty($_FILES['profile_picture']['name'])) {
+          $target_dir = __DIR__ . "/../image/uploads/";
+          if (!file_exists($target_dir)) mkdir($target_dir, 0777, true);
+          $file_extension = pathinfo($_FILES["profile_picture"]["name"], PATHINFO_EXTENSION);
+          $profile_pic = uniqid() . '.' . $file_extension;
+          move_uploaded_file($_FILES["profile_picture"]["tmp_name"], $target_dir . $profile_pic);
+      }
 
+      $password_hash = password_hash($password, PASSWORD_DEFAULT);
       $stmt = $pdo->prepare(
-        "INSERT INTO users (full_name, gender, email, password_hash, education_level, grade_or_major) VALUES (?,?,?,?,?,?)"
+        "INSERT INTO users (full_name, gender, email, password_hash, education_level, grade_or_major, profile_picture) VALUES (?,?,?,?,?,?,?)"
       );
 
-      if ($stmt->execute([$full_name, $gender, $email, $password_hash, $education_level, $grade_or_major])) {
-
-        $newUserId = $pdo->lastInsertId();
-        $success = "Account created successfully! Redirecting to login...";
-
+      if ($stmt->execute([$full_name, $gender, $email, $password_hash, $education_level, $grade_or_major, $profile_pic])) {
         wp_redirect(home_url('/login.php'));
         exit;
-
       } else {
         $error = "Failed to create account. Please try again.";
       }
@@ -60,7 +61,7 @@ include __DIR__ . '/header-minimal.php';
 <main class="page narrow">
   <section class="page-header" style="text-align: center; margin-bottom: 2rem;">
     <img src="<?php echo get_template_directory_uri(); ?>/../image/logo.png" alt="GeniusPath Logo"
-      style="width:672px;height: 384px;F margin-bottom: 1.5rem;">
+      style="width:672px;height: 384px; margin-bottom: 1.5rem;">
     <h1>Create your account</h1>
   </section>
 
@@ -71,15 +72,18 @@ include __DIR__ . '/header-minimal.php';
   <?php if ($success): ?>
     <div class="alert-success">
       <?php echo htmlspecialchars($success); ?>
-      <a href="<?php echo home_url('/login.php'); ?>" style="text-decoration: underline; font-weight: bold;">Login
-        here</a>.
+      <a href="<?php echo home_url('/login.php'); ?>" style="text-decoration: underline; font-weight: bold;">Login here</a>.
     </div>
   <?php endif; ?>
 
   <?php if (empty($success)): ?>
-    <form class="form-card" method="POST" action="<?php echo home_url('/register.php'); ?>">
+    <form class="form-card" method="POST" action="<?php echo home_url('/register.php'); ?>" enctype="multipart/form-data">
       <h2>Basic information</h2>
       <div class="form-grid">
+        <div class="form-field">
+          <label>Profile Picture</label>
+          <input type="file" name="profile_picture" accept="image/*">
+        </div>
         <div class="form-field">
           <label>Full name</label>
           <input type="text" name="full_name" required placeholder="Enter Fullname">
@@ -97,20 +101,14 @@ include __DIR__ . '/header-minimal.php';
             </label>
           </div>
         </div>
-
-
         <div class="form-field">
           <label>Email</label>
           <input type="email" name="email" required placeholder="Email@address.com">
         </div>
-
-
         <div class="form-field">
           <label>Password</label>
           <input type="password" name="password" required placeholder="Password">
         </div>
-
-
         <div class="form-field">
           <label>Education level</label>
           <select name="education_level">
@@ -118,8 +116,6 @@ include __DIR__ . '/header-minimal.php';
             <option value="University">University</option>
           </select>
         </div>
-
-
         <div class="form-field">
           <label>Grade / Major</label>
           <input type="text" name="grade_or_major" placeholder="Grade / Major">
