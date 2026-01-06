@@ -54,7 +54,7 @@ include __DIR__ . '/header.php';
     </section>
 
     <?php if ($result):
-        $cleanName = strtolower(str_replace([' ', '&'], ['-', 'and'], trim($result['career_name'])));
+        $cleanName = strtolower(str_replace([' ', '&', '/'], ['-', 'and', '-'], trim($result['career_name'])));
 
         $baseUrl = "/WAD-Project/wordpress/wp-content/themes/Genius-Path";
 

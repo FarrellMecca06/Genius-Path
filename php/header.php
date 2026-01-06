@@ -18,22 +18,27 @@ $userName = $_SESSION['user_full_name'] ?? null;
     <div class="nav-left">
         <?php if ($userName): ?>
             <?php 
-            $user_id = $_SESSION['user_id'];
-            include_once __DIR__ . '/config.php';
-            $stmt = $pdo->prepare("SELECT profile_picture FROM users WHERE id = ?");
-            $stmt->execute([$user_id]);
-            $userData = $stmt->fetch();
-            $img_path = $userData['profile_picture'] ? get_template_directory_uri().'/../image/uploads/'.$userData['profile_picture'] : get_template_directory_uri().'/../image/default-user.png';
+            // Cek file config.php secara aman agar tidak putih (blank)
+            $config_path = __DIR__ . '/config.php';
+            if (file_exists($config_path)) {
+                include_once $config_path;
+                $stmt = $pdo->prepare("SELECT profile_picture FROM users WHERE id = ?");
+                $stmt->execute([$_SESSION['user_id']]);
+                $userData = $stmt->fetch();
+                $img_name = $userData['profile_picture'] ?? 'default-user.png';
+                $img_url = get_template_directory_uri() . '/../image/uploads/' . $img_name;
+            } else {
+                $img_url = get_template_directory_uri() . '/../image/default-user.png';
+            }
             ?>
-            <a href="<?php echo home_url('/profile.php'); ?>" class="nav-profile-link">
-                <img src="<?php echo $img_path; ?>" class="nav-avatar">
+            <a href="<?php echo home_url('/profile.php'); ?>" style="display: flex; align-items: center; margin-right: 15px;">
+                <img src="<?php echo $img_url; ?>" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid #56bbea;">
             </a>
         <?php endif; ?>
 
         <a href="<?php echo home_url(); ?>" class="logo">
             <img src="<?php echo get_template_directory_uri(); ?>/../image/logo.png" alt="GeniusPath Logo" class="nav-logo-img">
         </a>
-        
         <ul class="nav-links">
             <li><a href="<?php echo home_url(); ?>">Home</a></li>
             <li><a href="<?php echo home_url('/self_discovery.php'); ?>">Self Discovery</a></li>
@@ -45,7 +50,7 @@ $userName = $_SESSION['user_full_name'] ?? null;
             <span class="user-pill">Hi, <?php echo htmlspecialchars($userName); ?></span>
             <a href="<?php echo home_url('/logout.php'); ?>" class="btn-outline">Logout</a>
         <?php else: ?>
-            <a href="<?php echo home_url('/login.php'); ?>" class="btn-outline">Login</a>
+            <a href="<?php echo home_url('/login.php'); ?>" class="btn-outline" style="margin-right: 10px;">Login</a>
             <a href="<?php echo home_url('/register.php'); ?>" class="btn-primary">Get Started</a>
         <?php endif; ?>
     </div>
